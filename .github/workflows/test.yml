@@ -1,0 +1,23 @@
+on:
+  [push]
+
+permissions:
+      id-token: write
+
+jobs: 
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: 'Az CLI login'
+      uses: azure/login@v1.4.0
+      with:
+        client-id: ${{ secrets.AZURE_CLIENTID }}
+        tenant-id: ${{ secrets.AZURE_TENANTID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTIONID }}
+
+    - name: 'Run az commands'
+      run: |
+        az account show
+        az group list
+        pwd 
